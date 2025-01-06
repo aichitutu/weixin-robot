@@ -1,13 +1,14 @@
-import { getAIData } from './acions/ai'
-import { getBinanceData } from './acions/binance'
-import { holiday } from './acions/fishingTime'
-import { getFutureData } from './acions/future'
-import { repeatMessage } from './acions/repeatMessage'
-import { getHotSpot } from './acions/stockHotSpot'
-import { getCNMarketIndexData, getHKMarketIndexData, getStockData, getStockDetailData, getUSMarketIndexData } from './acions/stockInfo'
-import { getStockSummary } from './acions/stockSummary'
-import { getFutuStockMap, getYuntuStockMap, MapType } from './acions/stockThermalMap'
-import { getWeiboData } from './acions/weibo'
+import { getAIData } from '@/services/actions/ai'
+import { getBinanceData } from '@/services/actions/binance'
+import { holiday } from '@/services/actions/fishingTime'
+import { getFutureData } from '@/services/actions/future'
+import { repeatMessage } from '@/services/actions/repeatMessage'
+import { getHotSpot } from '@/services/actions/stockHotSpot'
+import { getCNMarketIndexData, getHKMarketIndexData, getStockData, getStockDetailData, getUSMarketIndexData } from '@/services/actions/stockInfo'
+import { getStockSummary } from '@/services/actions/stockSummary'
+import { getFutuStockMap, getYuntuStockMap, MapType } from '@/services/actions/stockThermalMap'
+import { getWeiboData } from '@/services/actions/weibo'
+import { checkTime } from './actions/ocr'
 
 export interface CommandParams {
   args?: string,
@@ -134,6 +135,12 @@ const commandMap: { key: string, callback: (params: CommandParams) => Promise<st
       callback: repeatMessage,
       msg: 're [文本] [次数] - 复读机器人, 例如: re 你好 3',
       hasArgs: true,
+    },
+    {
+        key: 'picture',
+        callback: checkTime,
+        msg: '图片',
+        hasArgs: true,
     }
   ];
 // 解析命令

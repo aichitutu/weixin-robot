@@ -1,16 +1,16 @@
-import { repeatMessage } from './../acions/repeatMessage';
-import { getStockData } from '../acions/stockInfo';
-import { getWeiboData } from '../acions/weibo';
-import { getAIData } from '../acions/ai';
+import { repeatMessage } from '@/services/actions/repeatMessage';
+import { getStockData } from '@/services/actions/stockInfo';
+import { getWeiboData } from '@/services/actions/weibo';
+import { getAIData } from '@/services/actions/ai';
 import { describe, expect, it } from '@jest/globals';
 import { parseCommand } from '../command';
 import { convertToNumber, formatAmount } from '../../utils/convertToNumber';
-import { holiday } from '../acions/fishingTime';
-import { getFutureData, getFutureSuggest } from '../acions/future';
-import { getBinanceData } from '../acions/binance';
-import { getFutuStockMap, MapType } from '../acions/stockThermalMap';
-import { getHotSpot } from '../acions/stockHotSpot';
-import { getStockSummary } from '../acions/stockSummary';
+import { holiday } from '@/services/actions/fishingTime';
+import { getFutureData, getFutureSuggest } from '@/services/actions/future';
+import { getBinanceData } from '@/services/actions/binance';
+import { getFutuStockMap, MapType } from '@/services/actions/stockThermalMap';
+import { getHotSpot } from '@/services/actions/stockHotSpot';
+import { getStockSummary } from '@/services/actions/stockSummary';
 
 // 市场数据相关测试
 describe('Market Data Tests', () => {

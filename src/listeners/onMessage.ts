@@ -2,8 +2,8 @@ import { log } from 'wechaty'
 import type { Message, Room } from 'wechaty'
 import { sendContactImage, sendContactMsg, sendRoomImage, sendRoomMsg } from '../services/sendMessage.ts'
 import { parseCommand } from '../services/command.ts'
-import { getAIData } from '../services/acions/ai.ts'
-import { messageCount } from '../services/acions/messageCount.ts'
+import { getAIData } from '@/services/actions/ai.ts'
+import { messageCount } from '@/services/actions/messageCount.ts'
 
 export const GroupStatistics = process.env.GROUP_STATISTICS ?? false
 
@@ -87,7 +87,7 @@ async function getMessagePayload(msg: Message, room?: Room) {
  */
 async function dispatchRoomTextMsg(msg: Message, room: Room) {
   const topic = await room.topic()
-  const content = msg?.text()?.trim() ?? ''
+  let content = msg?.text()?.trim() ?? ''
   const contact = msg.talker()
   const alias = await contact.alias()
   const bot = msg.wechaty
@@ -108,6 +108,12 @@ async function dispatchRoomTextMsg(msg: Message, room: Room) {
       await sendRoomMsg(bot, response, topic);
     }
     return;
+  }
+
+  if (msg.type() === bot.Message.Type.Image && room) {
+    const img = await msg.toImage().hd()
+    content = await img.toBase64()
+    content = `picture${content}`
   }
 
   const sendMessage = async (content: string) => {
