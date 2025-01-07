@@ -162,7 +162,13 @@ async function dispatchFriendTextMsg(msg: Message) {
     }
     log.warn(`未知的响应类型: ${typeof content}`);
   }
-  parseCommand(content, sendMessage);
+  const re = await parseCommand(content, sendMessage)
+  if (!re && msg.type() === bot.Message.Type.Text) {
+    const data = await getAIData(content, name)
+    if (data) {
+      sendMessage(data)
+    }
+  }
 }
 
 

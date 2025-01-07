@@ -144,9 +144,11 @@ const commandMap: { key: string, callback: (params: CommandParams) => Promise<st
     }
   ];
 // 解析命令
-export async function parseCommand(msg: string, sendMessage: (content: string) => void, roomId?: string) {
+export async function parseCommand(msg: string, sendMessage: (content: string) => void, roomId?: string) : Promise<boolean> {
+  let re = false
   for (const command of commandMap) {
     if (msg.startsWith(command.key)) {
+      re = true
       const args = msg.slice(command.key.length).trim()
       const content = await command.callback({ args, sendMessage, key: command.key, roomId })
       if (content) {
@@ -154,6 +156,7 @@ export async function parseCommand(msg: string, sendMessage: (content: string) =
       }
     }
   }
+  return re
 }
 
 export async function getHelp() {
