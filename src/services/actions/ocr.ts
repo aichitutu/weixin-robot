@@ -3,7 +3,7 @@ import {CommandParams} from "@/services/command";
 
 function getTime(data) {
     if (!data || !data.length) return ''
-    const dateRegex = /\d{4}([\/\.])\d{2}\1\d{2}/
+    const dateRegex = /\d{4}([-\/.])\d{2}\1\d{2}/
     const timeRegex = /\d{2}(:|：)\d{2}/
 
     let date = ''
