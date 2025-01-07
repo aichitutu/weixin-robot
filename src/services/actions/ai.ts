@@ -20,7 +20,10 @@ const redis = new Redis({
 });
 
 async function getHistory(content: string, user: string) {
-    const arr = [{ role: "system", content: aiPrompt },{role: "user", content}]
+    const arr = [
+        { role: "system", content: aiPrompt },
+        {role: "user", content}
+    ]
     try{
         if (!user) return arr
         const value = await redis.get(`weixin:${user}`)
@@ -46,7 +49,7 @@ async function getAIData(content: string, user: string = '') {
             messages,
         });
         await redis.setex(`weixin:${user}`, 24 * 3600, JSON.stringify(messages));
-        return `${completion.choices[0].message.content}`;
+        return completion.choices[0].message.content || '你好，请提问吧'
     } catch (e) {
         return '哎呦 你干嘛！坤哥累了，不想回答！';
     }
