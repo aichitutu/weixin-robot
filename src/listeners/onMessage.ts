@@ -2,8 +2,8 @@ import { log } from 'wechaty'
 import type { Message, Room } from 'wechaty'
 import { sendContactImage, sendContactMsg, sendRoomImage, sendRoomMsg } from '../services/sendMessage.ts'
 import { parseCommand } from '../services/command.ts'
-import { getAIData } from '@/services/actions/ai.ts'
-import { messageCount } from '@/services/actions/messageCount.ts'
+import { getAIData } from '../services/actions/ai.ts'
+import { messageCount } from '../services/actions/messageCount.ts'
 
 export const GroupStatistics = process.env.GROUP_STATISTICS ?? false
 
